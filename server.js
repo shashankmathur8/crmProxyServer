@@ -307,7 +307,7 @@ app.post('/updateCompany', function (req, res, next) {
                 "database": _database,
                 "collection": _collectionCompany,
                 "filter": {
-                    "companyID": req.body.filter.companyID
+                    "companyID": req.body.companyID
                   },
                   "replacement": req.body.replacement
                 
