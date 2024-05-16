@@ -327,6 +327,45 @@ app.post('/updateCompany', function (req, res, next) {
 });
 
 
+app.post('/addCompany', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/insertOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionCompany,
+                "document": req.body
+                
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+
 app.post('/fetchCustomer', function (req, res, next) {
 
     // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
@@ -402,6 +441,85 @@ app.post('/deleteCustomer', function (req, res, next) {
             }).pipe(res);
     }
 });
+
+app.post('/deleteUser', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/deleteOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionUsers,
+                filter: req.body
+                
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+
+app.post('/deleteCompany', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/deleteOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionCompany,
+                filter: req.body
+                
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+
 
 app.post('/addCustomer', function (req, res, next) {
 
@@ -578,6 +696,43 @@ app.post('/addUserHistory', function (req, res, next) {
                 "dataSource": _dataSource,
                 "database": _database,
                 "collection": _collectionUserHistory,
+                "document": req.body
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+app.post('/addUser', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/insertOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionUsers,
                 "document": req.body
             }, headers: {
                 'apiKey': _apiKey,
