@@ -16,6 +16,10 @@ _apiKey = "iYAP9lLJI4nTfzugswcGJWjb8MzQbp954mFxSskYIuYSafyPcgPEqOM228iE20yJ";
 _dataSource = "Bettrillion";
 _database = "crm";
 _collectionUsers = "users";
+_collectionCompany = "company";
+_collectionCustomer = "customers";
+_collectionUserHistory = "userhistory";
+_collectionFiles = "files";
 
 app.use(bodyParser.json({limit: myLimit}));
 
@@ -205,6 +209,542 @@ app.post('/updateUser', function (req, res, next) {
             }).pipe(res);
     }
 });
+
+app.post('/fetchCompany', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/find", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionCompany,
+                "filter": req.body
+                
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+app.post('/fetchAllCompanies', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/find", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionCompany,
+                
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+app.post('/updateCompany', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/replaceOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionCompany,
+                "filter": {
+                    "companyID": req.body.filter.companyID
+                  },
+                  "replacement": req.body.replacement
+                
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+
+app.post('/fetchCustomer', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/find", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionCustomer,
+                filter: req.body
+                
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+app.post('/deleteCustomer', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/deleteOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionCustomer,
+                filter: req.body
+                
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+app.post('/addCustomer', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/insertOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionCustomer,
+                "document": req.body.document
+                
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+app.post('/updateCustomer', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/replaceOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionCustomer,
+                "filter": {
+                    "customerID": req.body.customerID
+                  },
+                  "replacement": req.body.replacement
+                
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+app.post('/fetchAllCustomer', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/find", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionCustomer,
+                
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+//_collectionUserHistory
+
+app.post('/fetchUserHistory', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/find", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionUserHistory,
+                "filter": req.body
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+app.post('/addUserHistory', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/insertOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionUserHistory,
+                "document": req.body
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+//_collection = "files";
+
+app.post('/uploadFiles', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/insertOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionFiles,
+                "document": req.body
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+app.post('/fetchAttachmentsForUser', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/insertOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionFiles,
+                "filter": req.body
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+app.post('/deleteAttachment', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/deleteOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionFiles,
+                "filter": req.body
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+app.post('/fetchAttachments', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/find", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionFiles,
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+
+
 app.set('port', process.env.PORT || 3000);
 
 app.listen(app.get('port'), function () {
