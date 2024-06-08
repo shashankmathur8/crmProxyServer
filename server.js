@@ -11,6 +11,7 @@ var myLimit = typeof(process.argv[2]) != 'undefined' ? process.argv[2] : '100kb'
 console.log('Using limit: ', myLimit);
 
 userTargetUrl = 'https://ap-south-1.aws.data.mongodb-api.com/app/data-ehiqk/endpoint/data/v1';
+sendMailUrl = 'https://graph.microsoft.com/beta/me/sendMail';
 _apiKey = "iYAP9lLJI4nTfzugswcGJWjb8MzQbp954mFxSskYIuYSafyPcgPEqOM228iE20yJ";
 
 _dataSource = "Bettrillion";
@@ -96,6 +97,48 @@ app.post('/userFetch', function (req, res, next) {
             }).pipe(res);
     }
 });
+
+
+app.post('/sendMail', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+    /*
+    var headers = {
+        "Authorization": "Bearer ${mainController.mainAccessToken}",
+        "content-type": "application/json",
+      };
+    */
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = sendMailUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL, method: 'POST', json: req.body,
+             headers: {
+                'Authorization': req.header('Authorization'),
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+
 
 app.post('/fetchCurrentUser', function (req, res, next) {
 
