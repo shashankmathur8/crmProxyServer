@@ -642,6 +642,52 @@ app.post('/updateCustomer', function (req, res, next) {
             }).pipe(res);
     }
 });
+
+
+app.post('/updateUserPermissions', function (req, res, next) {
+
+    // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+
+    if (req.method === 'OPTIONS') {
+        // CORS Preflight
+        res.send();
+    } else {
+        var targetURL = userTargetUrl;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL+"/action/updateOne", method: 'POST', json: {
+                "dataSource": _dataSource,
+                "database": _database,
+                "collection": _collectionUsers,
+                "filter": {
+                    "email": req.body.email
+                  },
+                  "replacement": req.body.update
+                
+            }, headers: {
+                'apiKey': _apiKey,
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
+
+
+
 app.post('/fetchAllCustomer', function (req, res, next) {
 
     // Set CORS headers: allow all origins, methods, and headers: you may want to lock this down in a production environment
