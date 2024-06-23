@@ -668,7 +668,7 @@ app.post('/updateUserPermissions', function (req, res, next) {
                 "filter": {
                     "email": req.body.email
                   },
-                  "replacement": req.body.update
+                  "update": req.body.update
                 
             }, headers: {
                 'apiKey': _apiKey,
