@@ -16,6 +16,7 @@ _apiKey = "iYAP9lLJI4nTfzugswcGJWjb8MzQbp954mFxSskYIuYSafyPcgPEqOM228iE20yJ";
 
 _dataSource = "Bettrillion";
 _database = "crm";
+_textValue="Nottobeused";
 _collectionUsers = "users";
 _collectionCompany = "company";
 _collectionCustomer = "customers";
