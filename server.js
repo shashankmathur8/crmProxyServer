@@ -139,6 +139,35 @@ app.post('/sendMail', function (req, res, next) {
     }
 });
 
+app.post('/replyMail', function (req, res, next) {
+res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+    if (req.method === 'OPTIONS') {
+        res.send();
+    } else {
+        var targetURL = req.header('emailReplyURL');;
+        if (!targetURL) {
+            res.send(500, { error: 'There is no Target-Endpoint header in the request' });
+            return;
+        }
+        request({
+            url: targetURL, method: 'POST', json: req.body,
+             headers: {
+                'Authorization': req.header('Authorization'),
+                "content-type": "application/json",
+                "Access-Control-Request-Headers": "*",
+            }
+        },
+            function (error, response, body) {
+                if (error) {
+                    console.error('error: ' + response.statusCode)
+                }
+               console.log(body);
+            }).pipe(res);
+    }
+});
+
 
 
 app.post('/fetchCurrentUser', function (req, res, next) {
