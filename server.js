@@ -14,7 +14,7 @@ userTargetUrl = 'https://ap-south-1.aws.data.mongodb-api.com/app/data-ehiqk/endp
 sendMailUrl = 'https://graph.microsoft.com/beta/me/sendMail';
 saveDraftURl="https://graph.microsoft.com/v1.0/me/messages";
 _apiKey = "iYAP9lLJI4nTfzugswcGJWjb8MzQbp954mFxSskYIuYSafyPcgPEqOM228iE20yJ";
-demo="";
+demo="    ";
 
 _dataSource = "Bettrillion";
 _database = "crmProd";
